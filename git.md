@@ -1,6 +1,19 @@
 # Git
 
-## Setup
+* [Setup](#setup)
+* [List of common aliases](#aliases)
+* [Create [and publish] a branch to remote](#create-branch)
+* [Tags](#tags)
+  * [Create a local tag](#create-tags)
+  * [Push the tag to remote](#push-tags)
+  * [Update a tag](#update-tags)
+* [Renaming a remote branch](#renaming-remote-branch)
+* [Rebasing](#rebase)
+  * [Rebase on top of master](#rebase-master)
+  * [Rebase --interactive](#rebase-interactive)
+  * [Rebase example](#rebase-example)
+
+## <a name="setup"></a>Setup
 
 At least, you need to set your user and email (remove the `--global` part if you just want to set the user for the current repository):
 
@@ -9,7 +22,7 @@ git config --global user.name "John Doe"
 git config --global user.email "johndoe@rakuten.com"
 ```
 
-## List of common aliases
+## <a name="aliases"></a>List of common aliases
 
 Displayed here as commands to configure your git client:
 
@@ -29,7 +42,7 @@ git config --global alias.aliases "config --get-regexp ^alias\."
 
 _Extra: [Git log format string cheatsheet](https://devhints.io/git-log-format)_
 
-## Create [and publish] a branch to remote
+## <a name="create-branch"></a>Create [and publish] a branch to remote
 
 Create the new branch:
 
@@ -45,9 +58,9 @@ When changes are commited, publish it to remote:
 git push -u origin <REMOTE_BRANCH>
 ```
 
-## Tags
+## <a name="tags"></a>Tags
 
-### Create a local tag
+### <a name="create-tags"></a>Create a local tag
 
 Tag the last commit of the current branch:
 
@@ -60,13 +73,13 @@ Or another commit
 git tag <TAG_NAME> <COMMIT_HASH>
 ```
 
-### Push the tag to remote
+### <a name="push-tags"></a>Push the tag to remote
 
 ```sh
 git push --tags
 ```
 
-### Update a tag
+### <a name="update-tags"></a>Update a tag
 
 Actually, the tag is removed from local, then from remote, and then recreated.
 
@@ -81,7 +94,7 @@ git tag <TAG_NAME>
 git push --tags
 ```
 
-## Renaming a remote branch
+## <a name="renaming-remote-branch"></a>Renaming a remote branch
 
 ```sh
 git push origin origin/<OLD>:refs/heads/<NEW> :<OLD>
@@ -93,7 +106,11 @@ git checkout <LOCAL>
 git branch -u origin/<NEW>
 ```
 
-## Rebase on top of master
+## <a name="rebase"></a>Rebase
+
+Contrarily to `merge`, `rebase` takes your changes and applies them after any other commit we are rebasing against.
+
+### <a name="rebase-master"></a>Rebase on top of master
 
 Whether we fork any library or branch any project, the original code (from now, `master`) might be updated like this:
 
@@ -124,7 +141,7 @@ git rebase --continue
 git push
 ```
 
-## Rebase (--interactive)
+### <a name="rebase-interactive"></a>Rebase --interactive
 
 When rebasing interactively, there are different options (`presfx`).
 
@@ -133,7 +150,7 @@ When rebasing interactively, there are different options (`presfx`).
 * `s` or `squash`. It put the `s`_'ed_ commit together with the previous one (the one above). The commit messages get concatenated, one after the other.
 * `f` or `fixup` does the same as `squash`, but discarding the commit message.
 
-### rebase example
+#### <a name="rebase-example"></a>Rebase example
 
 Let's say we have this history:
 
