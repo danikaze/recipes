@@ -8,6 +8,7 @@
   * [Push the tag to remote](#push-tags)
   * [Update a tag](#update-tags)
 * [Renaming a remote branch](#renaming-remote-branch)
+* [Removing a remote branch (or tag)](#removing-remote-branch)
 * [Rebasing](#rebase)
   * [Rebase on top of master](#rebase-master)
   * [Rebase --interactive](#rebase-interactive)
@@ -99,11 +100,19 @@ git push --tags
 ```sh
 git push origin origin/<OLD>:refs/heads/<NEW> :<OLD>
 
-# If we have a local_branch associated with branch1,
-# we need to associate it with branch2,
+# If we have a local_branch associated with OLD branch,
+# we need to associate it with NEW branch,
 # so the new pushes are uploaded to the correct branch.
 git checkout <LOCAL>
 git branch -u origin/<NEW>
+```
+
+## <a name="removing-remote-branch"></a>Removing a remote branch (or tag)
+
+```sh
+# This is the same as saying: copy an EMPTY branch into :<BRANCH_NAME>
+# and it's the same with tags
+git push origin :<BRANCH_NAME>
 ```
 
 ## <a name="rebase"></a>Rebase
