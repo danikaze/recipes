@@ -13,6 +13,8 @@
   * [Rebase on top of master](#rebase-master)
   * [Rebase --interactive](#rebase-interactive)
   * [Rebase example](#rebase-example)
+  * [Fixing authors in history](#fixing-author)
+
 
 ## <a name="setup"></a>Setup
 
@@ -156,6 +158,7 @@ When rebasing interactively, there are different options (`presfx`).
 
 * `p` or `pick` is the default option. It just gets that commit and apply it as usual.
 * `r` or `reword` does the same, but lets you change the commit message. Don't rewrite the message here, because when saving the to-do-list, git will apply all the picked commits and open the editor again with the commit message you want to reword, as if you were commiting it again. Now, you shall change the message.
+* `e` or `edit` stops after applying the commit, so you can run other commands as `git commit --amend`, etc. (see fixing the author in the history)
 * `s` or `squash`. It put the `s`_'ed_ commit together with the previous one (the one above). The commit messages get concatenated, one after the other.
 * `f` or `fixup` does the same as `squash`, but discarding the commit message.
 
@@ -242,3 +245,18 @@ git push --force
 This means that **our original commits will be replaced with new ones**. This is safe if you are the only one working in this branch, but if anyone is based their work on any of this commits, he will need to rebase/merge with the consecuent posibility of facing **conflicts** on their code.
 
 As long as everyone knows what's happening it should be ok (so this is more a communication and workflow problem that a technical one). Just make sure you have this clear ;)
+
+#### <a name="fixing-author"></a>Fixing authors in history
+
+This is another fix we can do with `rebase --interactive`. And it happens (to me at least) more than desired, when I clone the repository in a different machine/location and don't [set the author](#setup) with the one I'm using in that repository.
+
+Basically, we just need `git rebase --interactive` and set the commit(s) we want to fix to `edit` mode.
+
+When applying the commands, git will stop at each one so we can run this:
+
+```
+# The --no-edit avoids opening the editor to modify the commit message (since we just want to change the author)
+git commit --amend --author="danikaze <danikaze@gmail.com>" --no-edit
+# Tell git we have finished ammending the commit, and continue with the next one (or finish)
+git rebase --continue
+```
