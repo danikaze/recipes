@@ -21,8 +21,8 @@
 At least, you need to set your user and email (remove the `--global` part if you just want to set the user for the current repository):
 
 ```sh
-git config --global user.name "John Doe"
-git config --global user.email "johndoe@rakuten.com"
+git config --global user.name "danikaze"
+git config --global user.email "danikaze@gmail.com"
 ```
 
 ## <a name="aliases"></a>List of common aliases
@@ -35,8 +35,8 @@ git config --global alias.br branch
 git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.ri "rebase --interactive"
-git config --global alias.l "log --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short"
-git config --global alias.ls "log --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short --stat"
+git config --global alias.l "log --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short -n30"
+git config --global alias.ls "log --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short --stat -n30"
 git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 git config --global alias.undo-commit "reset --soft HEAD~"
