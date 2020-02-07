@@ -1,6 +1,7 @@
 # Git
 
 * [Setup](#setup)
+* [Change git editor](#editor)
 * [List of common aliases](#aliases)
 * [Create [and publish] a branch to remote](#create-branch)
 * [Tags](#tags)
@@ -23,6 +24,16 @@ At least, you need to set your user and email (remove the `--global` part if you
 ```sh
 git config --global user.name "danikaze"
 git config --global user.email "danikaze@gmail.com"
+```
+
+## <a name="editor"></a>Change git editor
+
+In most systems, `vi` is the default editor for git (to input commit messages, rebase-interactive, etc.).
+
+If you prefer to use a different editor (such as `emacs` or `nano`) you can easily change it with this command:
+
+```sh
+git config --global core.editor "nano"
 ```
 
 ## <a name="aliases"></a>List of common aliases
