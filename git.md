@@ -36,6 +36,8 @@ If you prefer to use a different editor (such as `emacs` or `nano`) you can easi
 git config --global core.editor "nano"
 ```
 
+To set VS Code as your git editor, [follow this steps](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor).
+
 ## <a name="aliases"></a>List of common aliases
 
 Displayed here as commands to configure your git client:
