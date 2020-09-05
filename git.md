@@ -15,6 +15,7 @@
   * [Rebase --interactive](#rebase-interactive)
   * [Rebase example](#rebase-example)
   * [Fixing authors in history](#fixing-author)
+* [Rebasing from a forked repo](#rebase-fork)
 
 
 ## <a name="setup"></a>Setup
@@ -273,4 +274,19 @@ When applying the commands, git will stop at each one so we can run this:
 git commit --amend --author="danikaze <danikaze@gmail.com>" --no-edit
 # Tell git we have finished ammending the commit, and continue with the next one (or finish)
 git rebase --continue
+```
+
+## <a name="rebase-fork"><a/>Rebasing from a forked repo
+
+When forking another repo from github (or any other source), you might want to update your fork with the latest changes from the original one. To do that, the easiest way is to add a new remote, which is going to be called `upstream` here:
+
+```
+git remote add upstream https://github.com/original-repo/goes-here.git
+```
+
+Once done this, you can rebase as any other branch:
+
+```
+git fetch upstream
+git rebase upstream/master
 ```
