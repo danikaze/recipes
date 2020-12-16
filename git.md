@@ -55,6 +55,7 @@ git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 git config --global alias.undo-commit "reset --soft HEAD~"
 git config --global alias.stash-all "stash --include-untracked"
+git config --global alias.stash-unstaged "stash -k"
 git config --global alias.aliases "config --get-regexp ^alias\."
 ```
 
