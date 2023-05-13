@@ -7,6 +7,7 @@
 - [GetMapValue](#get-map-value)
 - [ExcludeFromArray](#exclude-from-array)
 - [KeysOfWithValue](#keysof-with-value)
+- [OptionalPromise](#optional-promise)
 
 ## <a name="forbid-field-collision"></a>ForbidFieldCollision
 
@@ -83,7 +84,7 @@ type ExcludeFromArray<T extends any[], U> = T extends (infer D)[]
 
 ```ts
 /**
- * Return the keys of an object O which values matches the type T
+ * Return the keys of an object `O` which values matches the type `T`
  */
 type KeysOfWithValue<O extends {}, T> = Exclude<
   {
@@ -91,4 +92,13 @@ type KeysOfWithValue<O extends {}, T> = Exclude<
   }[keyof O],
   undefined
 >;
+```
+
+## <a name="optional-promise"></a>OptionalPromise
+
+```ts
+/**
+ * A type `T` or a `Promise` for that type
+ */
+type OptionalPromise<T> = T | Promise<T>;
 ```
