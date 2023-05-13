@@ -6,6 +6,7 @@
 - [GetMapKey](#get-map-key)
 - [GetMapValue](#get-map-value)
 - [ExcludeFromArray](#exclude-from-array)
+- [KeysOfWithValue](#keysof-with-value)
 
 ## <a name="forbid-field-collision"></a>ForbidFieldCollision
 
@@ -76,4 +77,18 @@ type GetMapValue<M> = M extends Map<infer K, infer V> ? V : never;
 type ExcludeFromArray<T extends any[], U> = T extends (infer D)[]
   ? Exclude<D, U>[]
   : never;
+```
+
+## <a name="keysof-with-value"></a>KeysOfWithValue
+
+```ts
+/**
+ * Return the keys of an object O which values matches the type T
+ */
+type KeysOfWithValue<O extends {}, T> = Exclude<
+  {
+    [K in keyof O]: O[K] extends T ? K : never;
+  }[keyof O],
+  undefined
+>;
 ```
