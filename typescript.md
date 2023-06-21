@@ -3,6 +3,7 @@
 - [ForbidFieldCollision](#forbid-field-collision)
 - [SubType](#subtype)
 - [PartialPick](#partial-pick)
+- [RequiredPick](#required-pick)
 - [GetMapKey](#get-map-key)
 - [GetMapValue](#get-map-value)
 - [ExcludeFromArray](#exclude-from-array)
@@ -44,6 +45,19 @@ type PartialPick<Interface extends {}, Keys extends keyof Interface> = Omit<
   Keys
 > &
   Partial<Pick<Interface, Keys>>;
+```
+
+## <a name="required-pick"></a>RequiredPick
+
+```ts
+/**
+ * Converts some `Keys` of a given `Interface` to required
+ */
+type RequiredPick<Interface extends {}, Keys extends keyof Interface> = Omit<
+  Interface,
+  Keys
+> &
+  Required<Pick<Interface, Keys>>;
 ```
 
 ## <a name="get-map-key"></a>GetMapKey
