@@ -57,7 +57,26 @@ git config --global alias.undo-commit "reset --soft HEAD~"
 git config --global alias.stash-all "stash --include-untracked"
 git config --global alias.stash-unstaged "stash --keep-index -u"
 git config --global alias.aliases "config --get-regexp ^alias\."
+git config --global alias.b '!sh -c '"'"'
+ current=$(git symbolic-ref --short HEAD);
+ git for-each-ref --sort=-committerdate refs/heads/ \
+   --format="%(committerdate:short) %(objectname:short) %(refname:short) %(HEAD)" |
+ while read -r date rev branch head; do
+   is_current=false
+   if [ "$head" = "*" ]; then
+     is_current=true
+   fi
+ 
+   if $is_current; then
+     printf "\033[37m*\033[0m \033[33m%s\033[0m \033[31m%s\033[0m \033[32m%s\033[0m\n" "$rev" "$date" "$branch"
+   else
+     printf "  \033[33m%s\033[0m \033[31m%s\033[0m \033[37m%s\033[0m\n" "$rev" "$date" "$branch"
+   fi
+ done
+ '"'"
 ```
+
+_The last one looks like that because it uses bash for processing, but it works in unix/mac/git bash, and it displays the available local branches sorted by update date having most recent branches on the top. Perfect to see what you were doing recently or detect old branches to delete._
 
 _Extra: [Git log format string cheatsheet](https://devhints.io/git-log-format)_
 
