@@ -49,8 +49,8 @@ git config --global alias.br branch
 git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.ri "rebase --interactive"
-git config --global alias.l "log --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short -n30"
-git config --global alias.ls "log --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short --stat -n30"
+git config --global alias.l "log --first-parent --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short -n30"
+git config --global alias.ls "log --first-parent --pretty=format:'%C(yellow)%h %C(red)%ad %C(cyan)%an %C(green)%d %C(reset)%s' --date=short --stat -n30"
 git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 git config --global alias.undo-commit "reset --soft HEAD~"
