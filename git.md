@@ -16,15 +16,17 @@
   * [Rebase example](#rebase-example)
   * [Fixing authors in history](#fixing-author)
 * [Rebasing from a forked repo](#rebase-fork)
-
+* [Exporting a repo preserving commits](#exporting-repo)
+  * [Exporting commits one by one](#exporting-commits)
+  * [Importing commits one by one](#importing-commits)
 
 ## <a name="setup"></a>Setup
 
 At least, you need to set your user and email (remove the `--global` part if you just want to set the user for the current repository):
 
 ```sh
-git config --global user.name "danikaze"
-git config --global user.email "danikaze@gmail.com"
+git config --global user.name "UserName"
+git config --global user.email "user@domain.com"
 ```
 
 ## <a name="editor"></a>Change git editor
@@ -291,7 +293,7 @@ When applying the commands, git will stop at each one so we can run this:
 
 ```
 # The --no-edit avoids opening the editor to modify the commit message (since we just want to change the author)
-git commit --amend --author="danikaze <danikaze@gmail.com>" --no-edit
+git commit --amend --author="UserName <user@domain.com>" --no-edit
 # Tell git we have finished ammending the commit, and continue with the next one (or finish)
 git rebase --continue
 ```
@@ -309,4 +311,68 @@ Once done this, you can rebase as any other branch:
 ```
 git fetch upstream
 git rebase upstream/master
+```
+
+## <a name="exporting-repo"><a/>Exporting a repo preserving commits
+
+To export a full repository maintaining the commits history, it can be done by exporting patches for each one of the commits of the source repository and importing them in the same order in the target repository:
+
+### <a name="exporting-commits"><a/>Exporting commits one by one
+
+#### Exporting the whole repository
+
+```
+git format-patch --root HEAD ./output-folder-path
+```
+
+#### Exporting a subset of commits
+
+If only certain group of commits are wanted, it can be done with:
+
+```
+git format-patch commit1..commit2 -o ../patches
+```
+
+Note that `commit1` will not be included in the output, so select the previous one to the first desired, or use `^` to include it:
+
+```
+git format-patch commit1^..commit2 -o ../patches
+```
+
+Using `^` requires `commit1` to have a parent. If `commit1` is the first commit, use `-root`:
+
+```
+git format-patch --root commit2 -o ../patches
+```
+
+#### Summary table
+
+Given this history
+
+```
+A (root)---B---C---D---E
+```
+
+| Command | Commits exported |
+| --- | --- |
+| `git format-patch B..D` | `C`, `D` |
+| `git format-patch B^..D` | `B`, `C`, `D` |
+| `git format-patch --root D` | `A`, `B`, `C`, `D` |
+| `git format-patch --root HEAD` | `A`, `B`, `C`, `D`, `E` |
+
+
+### <a name="importing-commits"><a/>Importing commits one by one
+
+Given a folder with a list of patches to apply or import (see the previous export step), run from the target repository the following command:
+
+```
+git am ../patches-folder-path/*.patch
+```
+
+#### Fixing the author of every commit
+
+If you are using different accounts in each repository, you can fix the imported commits with:
+
+```
+git rebase --root --exec 'git commit --amend --no-edit --author="User Name <user@domain.com>"'
 ```
