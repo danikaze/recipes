@@ -76,9 +76,19 @@ git config --global alias.b '!sh -c '"'"'
    fi
  done
  '"'"
+git config --global alias.done '!f() {
+  b=$(git branch --show-current);
+  if [ -z "$b" ] || [ "$b" = main ]; then
+    echo "Already on main (or detached HEAD), nothing to do" >&2;
+    exit 1;
+  fi;
+  git checkout main &&
+  git pull --prune &&
+  git branch -D "$b";
+}; f'
 ```
 
-_The last one looks like that because it uses bash for processing, but it works in unix/mac/git bash, and it displays the available local branches sorted by update date having most recent branches on the top. Perfect to see what you were doing recently or detect old branches to delete._
+_The last ones looks like that because it uses bash for processing, but it works in unix/mac/git bash, and it displays the available local branches sorted by update date having most recent branches on the top. Perfect to see what you were doing recently or detect old branches to delete._
 
 _Extra: [Git log format string cheatsheet](https://devhints.io/git-log-format)_
 
